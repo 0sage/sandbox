@@ -24,7 +24,7 @@ docker run -d \
   --security-opt seccomp=unconfined \
   --cgroupns=host \
   -v /sys/fs/cgroup:/sys/fs/cgroup:rw \
-  -v <name>-data:/home \
+  -v /home \
   ghcr.io/0sage/debiand:latest
 ```
 
@@ -44,14 +44,7 @@ Default: 1 CPU, 512MB RAM. Override at run time:
 
 ## Persist data
 
-The `/home` volume persists across restarts. The container writable layer (installed packages, configs, systemd services) also persists as long as the container is not removed (`docker rm`).
-
-To back up state:
-
-```bash
-# commit current state to a new image
-docker commit <name> <name>-backup
-```
+`/home` is an anonymous volume — persists across restarts, survives `docker rm` unless you run `docker rm -v <name>` or `docker volume prune`.
 
 ## Manage lifecycle
 
