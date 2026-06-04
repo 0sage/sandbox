@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     openssh-client \
     procps \
     cron \
+    ca-certificates \
     && rm -rf /var/lib/apt/lists/* \
     && rm -f \
     /lib/systemd/system/multi-user.target.wants/getty* \
