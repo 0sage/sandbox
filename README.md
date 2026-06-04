@@ -11,9 +11,11 @@ VM-like sandbox container images for isolated environments.
 ## Run a sandbox
 
 ```bash
+NAME=mybox
+
 docker run -d \
-  --name <name> \
-  --hostname <name> \
+  --name $NAME \
+  --hostname $NAME \
   --restart=unless-stopped \
   --cpus=1 \
   --memory=512m \
@@ -24,14 +26,14 @@ docker run -d \
   --security-opt seccomp=unconfined \
   --cgroupns=host \
   -v /sys/fs/cgroup:/sys/fs/cgroup:rw \
-  -v /home \
+  -v ${NAME}-data:/home \
   ghcr.io/0sage/debiand:latest
 ```
 
 ## Enter
 
 ```bash
-docker exec -it <name> bash
+docker exec -it $NAME bash
 ```
 
 ## Resource limits
@@ -49,9 +51,9 @@ Default: 1 CPU, 512MB RAM. Override at run time:
 ## Manage lifecycle
 
 ```bash
-docker stop <name>      # stop (data preserved)
-docker start <name>     # start again
-docker restart <name>   # restart (all services auto-start via systemd)
-docker rm <name>        # delete container (writable layer lost, /home volume kept)
-docker volume rm <name>-data  # delete persistent data
+docker stop $NAME
+docker start $NAME
+docker restart $NAME
+docker rm $NAME             # delete container (writable layer lost, volume kept)
+docker rm -v $NAME          # delete container and volume
 ```
