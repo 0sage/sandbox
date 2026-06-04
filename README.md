@@ -15,6 +15,9 @@ docker run -d \
   --name <name> \
   --hostname <name> \
   --restart=unless-stopped \
+  --cpus=1 \
+  --memory=512m \
+  --memory-swap=512m \
   --cap-add SYS_ADMIN \
   --cap-add NET_ADMIN \
   --cap-add SYS_PTRACE \
@@ -33,13 +36,10 @@ docker exec -it <name> bash
 
 ## Resource limits
 
+Default: 1 CPU, 512MB RAM. Override at run time:
+
 ```bash
-docker run -d \
-  --name <name> \
-  --cpus=2 \
-  --memory=2g \
-  --memory-swap=2g \
-  ...
+--cpus=2 --memory=2g --memory-swap=2g
 ```
 
 ## Persist data
