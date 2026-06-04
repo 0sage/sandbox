@@ -20,10 +20,7 @@ docker run -d \
   --cpus=1 \
   --memory=512m \
   --memory-swap=512m \
-  --cap-add SYS_ADMIN \
-  --cap-add NET_ADMIN \
-  --cap-add SYS_PTRACE \
-  --security-opt seccomp=unconfined \
+  --privileged \
   --cgroupns=host \
   -v /sys/fs/cgroup:/sys/fs/cgroup:rw \
   -v ${NAME}-data:/home \
