@@ -22,8 +22,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     /lib/systemd/system/syslog.socket \
     /lib/systemd/system/systemd-update-utmp* \
     /lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup-dev* \
-    && systemctl enable cron
+    && systemctl enable cron \
+    && mkdir -p /etc/systemd/system.conf.d \
+    && printf '[Manager]\nDefaultEnvironment=HOME=/root USER=root LOGNAME=root SHELL=/bin/bash LANG=C.UTF-8 TERM=xterm-256color XDG_RUNTIME_DIR=/run/user/0\n' \
+       > /etc/systemd/system.conf.d/env.conf
 
 STOPSIGNAL SIGRTMIN+3
+
+ENV PATH="/root/.local/bin:$PATH"
 
 CMD ["/lib/systemd/systemd"]
