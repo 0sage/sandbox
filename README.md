@@ -6,12 +6,9 @@ VM-like sandbox container images for isolated environments.
 
 | Image | Base | Description |
 |-------|------|-------------|
-| [debiand](debiand/) | Debian Bookworm | systemd as PID 1, cron, full VM-like environment |
 | [alpined](alpined/) | Alpine 3.20 | tini as PID 1, crond, daemon autostart hooks |
 
 ## Run a sandbox
-
-### alpined
 
 ```bash
 NAME=mybox
@@ -23,22 +20,6 @@ docker run -d \
   -v ${NAME}-home:/home \
   -v ${NAME}-root:/root \
   ghcr.io/0sage/alpined:latest
-```
-
-### debiand (systemd)
-
-```bash
-NAME=mybox
-
-docker run -d \
-  --name $NAME \
-  --hostname $NAME \
-  --restart=unless-stopped \
-  --privileged \
-  --cgroupns=host \
-  -v /sys/fs/cgroup:/sys/fs/cgroup:rw \
-  -v ${NAME}-data:/home \
-  ghcr.io/0sage/debiand:latest
 ```
 
 ## Enter
@@ -55,7 +36,7 @@ Optional — add at run time if needed:
 --cpus=1 --memory=512m --memory-swap=512m
 ```
 
-## Install and run daemons (alpined)
+## Install and run daemons
 
 Packages installed with `apk` persist in the container's writable layer across restarts:
 
