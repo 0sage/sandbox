@@ -15,7 +15,7 @@ crond -b -l 8 -c /root/crontabs
 # run user-defined autostart scripts (replaces systemctl enable)
 # stored in /root/.local.d/ so they persist on the named volume across docker rm
 for f in /root/.local.d/*.start; do
-    [ -f "$f" ] && sh "$f"
+    [ -f "$f" ] && sh "$f" || true
 done
 
 # hand off — tini reaps zombies, sleep keeps container alive

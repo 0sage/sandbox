@@ -6,7 +6,7 @@ RUN apk add --no-cache \
     curl \
     wget \
     sudo \
-    openssh-client \
+    openssh \
     procps \
     busybox-extras \
     tzdata \
